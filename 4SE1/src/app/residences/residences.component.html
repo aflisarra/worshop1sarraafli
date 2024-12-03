@@ -1,0 +1,46 @@
+<div>
+  <h1>Liste des Résidences</h1>
+
+  <!-- Champ de recherche en dehors de la boucle -->
+  <input 
+    type="text" 
+    [(ngModel)]="searchQuery" 
+    placeholder="Rechercher par adresse..." 
+    class="search-input"
+  />
+
+  <!-- Liste des résidences filtrées -->
+  <div *ngFor="let residence of filteredResidences">
+    <h2>{{ residence.name }}</h2>
+    <p>Status : {{ residence.status }}</p>
+    
+    <button (click)="ShowLocation(residence)">Afficher l'adresse</button>
+
+    <!-- Affiche le statut avec des couleurs différentes -->
+    <p>Statut : 
+      <span *ngIf="residence.status === 'Disponible'" style="color:green;">
+        Disponible
+      </span>
+      <span *ngIf="residence.status === 'En Construction'" style="color:orange;">
+        En Construction
+      </span>
+      <span *ngIf="residence.status === 'Vendu'" style="color:red;">
+        Vendu
+      </span>
+    </p>
+
+    <!-- Bouton Like -->
+    <button (click)="addFavorite(residence)">Like</button>
+    
+    <!-- Affiche l'adresse uniquement si `v` est vrai -->
+    <p *ngIf="v && nameR === residence.address">Adresse : {{ residence.address }}</p>
+  </div>
+
+  <!-- Liste des Résidences Favorites -->
+  <h2>Résidences Favorites :</h2>
+  <ul>
+    <li *ngFor="let favorite of favorites">
+      {{ favorite.name }} - {{ favorite.address }}
+    </li>
+  </ul>
+</div>
